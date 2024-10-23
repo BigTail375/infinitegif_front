@@ -5,7 +5,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 const MovieCard = ({ imageURL }) => {
 
-  const imagePath = `http://${process.env.BACKEND_URL}/img/${imageURL}`; // poster image path URL 
+  const imagePath = `http://${process.env.REACT_APP_BACKEND_URL}/img/${imageURL}`; // poster image path URL 
   
   const downloadImage = async (imageUrl) => {
     try {
