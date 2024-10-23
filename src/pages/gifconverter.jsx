@@ -47,7 +47,7 @@ function Gifconverter() {
         // Create FormData and append the Blob
         const formData = new FormData();
         formData.append("file", blob, "filename.extension");
-        axios.post("http://127.0.0.1:5001/upload", formData)
+        axios.post(`http://${process.env.BACKEND_URL}:5001/upload`, formData)
         .then((response) => {
           console.log("Success:", response.data);
           alert("Success: Image is uploaded!")
