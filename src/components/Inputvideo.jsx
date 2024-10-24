@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Video = styled.video`
-  width: 40%;
+  width: 50%;
   margin: 20px;
   border: 1px dashed #045ca3;
 `;

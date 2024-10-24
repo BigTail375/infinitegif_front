@@ -20,8 +20,8 @@ const Btn = styled.button`
   }
 `;
 
-const Button = ({ convertToGif }) => {
-  return <Btn onClick={convertToGif}>Convert</Btn>;
+const Button = ({ callBack, buttonText }) => {
+  return <Btn onClick={callBack}>{buttonText}</Btn>;
 };
 
 export default Button;

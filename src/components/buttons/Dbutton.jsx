@@ -6,7 +6,6 @@ const Btn = styled.a`
   left: 0;
   right: 0;
   margin: 20px auto;
-  margin-top: -20px;
   background-color: #000;
   color: #fff;
   border-radius: 35.5px;
@@ -16,9 +15,6 @@ const Btn = styled.a`
   cursor: pointer;
   font-size: 1.2em;
   padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  max-width: 10%;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   :hover {

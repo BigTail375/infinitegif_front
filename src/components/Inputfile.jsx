@@ -6,7 +6,7 @@ const Section = styled.div`
   left: 0;
   right: 0;
   margin: 50px auto;
-  width: 30%;
+  width: 50%;
   border: 2px dashed #000;
   border-radius: 18px;
   padding: 10px;

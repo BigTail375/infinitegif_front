@@ -8,10 +8,10 @@ const Btn = styled.button`
   border: 1px solid #000;
   outline: none;
   margin: 10px;
-  padding: 5px;
+  padding: 10px;
   font-weight: 700;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 1.2em;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   :hover {
