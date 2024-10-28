@@ -51,7 +51,10 @@ function Dashboard() {
   return (
     <div className="App">
       <header className="App-header">
-        <Cbutton isConvert={true}/>
+        <div style={{display: 'flex'}}>
+          <Cbutton buttonType={1}/>
+          <Cbutton buttonType={2}/>
+        </div>
         <div className="movieCardContainer">
           {data.length > 1 &&
             data.map((item) => {

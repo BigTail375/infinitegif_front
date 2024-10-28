@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Dashboard, Gifconverter} from "./pages";
+import { Dashboard, Gifconverter, RecrusiveGif} from "./pages";
 
 export default function App() {
   return (
@@ -8,6 +8,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/gif" element={<Gifconverter />}/>
+        <Route path="/recrusive" element={<RecrusiveGif />}/>
       </Routes>
     </BrowserRouter>
   );

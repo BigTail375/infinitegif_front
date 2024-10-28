@@ -10,10 +10,10 @@ const H1 = styled.h1`
   font-size: 3em;
 `;
 
-const Header = () => {
+const Header = ({headerText}) => {
   return (
     <div>
-      <H1>video to gif converter</H1>
+      <H1>{headerText}</H1>
     </div>
   );
 };

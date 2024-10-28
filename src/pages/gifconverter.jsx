@@ -150,9 +150,9 @@ function Gifconverter() {
 
   return ready ? (
     <div className="App">
-      <Header />
+      <Header headerText={"video to gif converter"}/>
+      <Cbutton buttonType={3}/>
       {video && <Inputvideo video={video} />}
-      <Cbutton isConvert={false}/>
       <Inputfile setVideo={setVideo} />
       <Button callBack={convertToGif} buttonText={"Convert"}/>
       {gif && <h1>Result</h1>}

@@ -20,14 +20,18 @@ const Btn = styled.button`
   }
 `;
 
-const Cbutton = ({isConvert}) => {
+const Cbutton = ({buttonType}) => {
+  
   return (
     <div>
       <Btn onClick={() => {
-        if (isConvert) {window.location = '/gif';}
+        if (buttonType == 1) {window.location = '/gif';}
+        else if (buttonType == 2) {window.location = '/recrusive';}
         else {window.location = '/';}
       }}>
-        {isConvert ? "Convert Video to GIF" : "Browse Images"}
+        {buttonType == 1 ? "Convert Video to GIF" : ""}
+        {buttonType == 2 ? "Convert Image to Recrusive Gif" : ""}
+        {buttonType == 3 ? "Browse Images" : ""}
       </Btn>  
     </div>
   );
