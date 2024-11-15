@@ -21,7 +21,9 @@ const MovieCard = ({ imageURL }) => {
 
   return (
     <div className="image-wrapper">
-      <img src={imagePath}/>
+      <div className="image-container">
+        <img src={imagePath} alt="Movie" />
+      </div>
       <button className="download-btn" onClick={() => downloadImage(imagePath)}>
         <FontAwesomeIcon icon={faDownload} />
       </button>
