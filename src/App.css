@@ -90,3 +90,22 @@
 p{
   font-size: 18px;
 }
+
+.tag-container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 8px;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.tag {
+  background-color: #007BFF;
+  color: #FFFFFF;
+  border-radius: 16px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

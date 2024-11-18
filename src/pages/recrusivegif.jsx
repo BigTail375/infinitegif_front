@@ -59,8 +59,7 @@ function RecrusiveGif() {
 
   return (
     <div className="App">
-      <Header headerText={"image to recrusive gif converter"}/>
-      <Cbutton buttonType={3}/>
+      <Header />
       {image && <Inputimage image={image} />}
       <Inputfile setVideo={setImage} />
       {image && <div><Button buttonText={"Convert to recrusive gif"} callBack={handleUpload} /></div>}

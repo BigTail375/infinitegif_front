@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-import { Cbutton, MovieCard } from "../components";
+import { Cbutton, MovieCard, Header } from "../components";
 
 function Dashboard() {
   const [page, setPage] = useState(1);
@@ -50,18 +50,16 @@ function Dashboard() {
 
   return (
     <div className="App">
+      <Header />
       <header className="App-header">
-        <div style={{display: 'flex'}}>
-          <Cbutton buttonType={1}/>
-          <Cbutton buttonType={2}/>
-        </div>
         <div className="movieCardContainer">
           {data.length > 1 &&
             data.map((item) => {
               return (
                 <MovieCard
-                  key={item.path}
+                  key={item._id}
                   imageURL={item.path}
+                  _id={item._id}
                 />
               );
             })}
