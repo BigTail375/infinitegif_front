@@ -109,3 +109,14 @@ p{
   font-weight: 500;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+.new-post-button {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #1bb76e; /* Imgur's green button */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

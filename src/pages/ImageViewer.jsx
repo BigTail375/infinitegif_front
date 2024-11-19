@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { SocialIcon } from 'react-social-icons'
 import { Header } from "../components";
+import { useNavigate } from "react-router-dom";
 
 const ImageViewer = () => {
+  const navigate = useNavigate();
   const { image_id } = useParams(); // Extract the image_id from the URL
   const [imageUrl, setImageUrl] = useState("");
   const [imageTags, setImageTags] = useState([]);
@@ -30,7 +32,10 @@ const ImageViewer = () => {
     }
   };
 
-
+  const handleTagImage = (tag_id) => {
+    const encodedTagId = encodeURIComponent(tag_id);
+    navigate(`/tag/${encodedTagId}`);
+  }
   return (
     <div className="App">
       <Header />
@@ -55,13 +60,12 @@ const ImageViewer = () => {
           
           <div className="tag-container" style={{ marginTop: "10px" }}>
             {imageTags.map((item, index) => (
-              <div key={index} className="tag" style={{ display: "inline-block", margin: "5px", padding: "5px", border: "1px solid #ddd", borderRadius: "5px" }}>
+              <button key={index} className="tag" onClick={() => {handleTagImage(item);}} style={{ display: "inline-block", margin: "5px", padding: "5px", border: "1px solid #ddd", borderRadius: "5px", cursor: "pointer"}}>
                 {item}
-              </div>
+              </button>
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );
