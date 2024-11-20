@@ -22,11 +22,13 @@ const Cbutton = ({buttonType}) => {
       <Btn onClick={() => {
         if (buttonType == 1) {window.location = '/gif';}
         else if (buttonType == 2) {window.location = '/recrusive';}
-        else {window.location = '/';}
+        else if (buttonType == 3) {window.location = '/';}
+        else {window.location = '/audio';}
       }}>
         {buttonType == 1 ? "Video2Gif" : ""}
         {buttonType == 2 ? "Image2Recrusive" : ""}
         {buttonType == 3 ? "Browse Image" : ""}
+        {buttonType == 4 ? "Browse Audio" : ""}
       </Btn>  
     </div>
   );

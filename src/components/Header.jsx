@@ -17,9 +17,10 @@ const Header = () => {
 
       {/* Center Section: Add New Post Button */}
       <div className="header-center">
+        <Cbutton buttonType={3}/>
+        <Cbutton buttonType={4}/>
         <Cbutton buttonType={1}/>
         <Cbutton buttonType={2}/>
-        <Cbutton buttonType={3}/>
       </div>
 
       {/* Right Section: Sign In / Sign Up */}

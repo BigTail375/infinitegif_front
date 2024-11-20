@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Dashboard, Gifconverter, RecrusiveGif, ImageViewer, TagViewer} from "./pages";
+import { Dashboard, Gifconverter, RecrusiveGif, ImageViewer, TagViewer, AudioViewer} from "./pages";
 
 export default function App() {
   return (
@@ -11,6 +11,7 @@ export default function App() {
         <Route path="/recrusive" element={<RecrusiveGif />}/>
         <Route path="/image/:image_id" element={<ImageViewer />} />
         <Route path="/tag/:tag_id" element={<TagViewer />} />
+        <Route path="/audio" element={<AudioViewer />} />
       </Routes>
     </BrowserRouter>
   );

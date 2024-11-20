@@ -9,5 +9,6 @@ import Inputvideo from './Inputvideo';
 import Inputimage from './Inputimage';
 import Resultimage from './Resultimage';
 import MovieCard from './MovieCard';
+import AudioCard from './AudioCard';
 
-export {Button, Dbutton, Ubutton, Cbutton, Header, Inputfile, Inputvideo, Inputimage, Resultimage, MovieCard};
+export {Button, Dbutton, Ubutton, Cbutton, Header, Inputfile, Inputvideo, Inputimage, Resultimage, MovieCard, AudioCard};

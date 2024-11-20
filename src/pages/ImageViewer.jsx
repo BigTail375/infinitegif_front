@@ -10,6 +10,7 @@ const ImageViewer = () => {
   const { image_id } = useParams(); // Extract the image_id from the URL
   const [imageUrl, setImageUrl] = useState("");
   const [imageTags, setImageTags] = useState([]);
+  const [audioUrl, setAudioUrl] = useState("");
 
   useEffect(() => {
     handleUrl();
@@ -22,13 +23,25 @@ const ImageViewer = () => {
     console.log("_________id_data:", id_data);
 
     setImageUrl(`http://${process.env.REACT_APP_BACKEND_URL}/img/${id_data.data.results.path}`);
+    if (id_data.data.results.audio != "") {
+      setAudioUrl(`http://${process.env.REACT_APP_BACKEND_URL}/img/${id_data.data.results.audio}`)
+    }
+    else {
+      setAudioUrl("");
+    }
     setImageTags(id_data.data.results.tags);
   };
 
-  const copyToClipboard = () => {
+  const copyImageToClipboard = () => {
     if (imageUrl) {
       navigator.clipboard.writeText(imageUrl);
       alert("Image URL is copied to clipboard!");
+    }
+  };
+  const copyAudioToClipboard = () => {
+    if (audioUrl) {
+      navigator.clipboard.writeText(audioUrl);
+      alert("Audio URL is copied to clipboard!");
     }
   };
 
@@ -42,22 +55,6 @@ const ImageViewer = () => {
       <div className="App-header">
         {/* Left Panel: Image and Tags */}
         <div style={{ flex: 3 }}>
-          <div style={{position: "relative"}}>
-            <button
-              onClick={copyToClipboard}
-              className="share-button"
-              style={{position: "absolute", top: "0px", "right": "4px"}}
-            >
-              Share
-            </button>
-            <img
-              src={imageUrl}
-              alt="Viewed Content"
-              style={{ width: "100%", objectFit: "contain" }}
-            />
-
-          </div>
-          
           <div className="tag-container" style={{ marginTop: "10px" }}>
             {imageTags.map((item, index) => (
               <button key={index} className="tag" onClick={() => {handleTagImage(item);}} style={{ display: "inline-block", margin: "5px", padding: "5px", border: "1px solid #ddd", borderRadius: "5px", cursor: "pointer"}}>
@@ -65,6 +62,33 @@ const ImageViewer = () => {
               </button>
             ))}
           </div>
+          
+          <div style={{position: "relative"}}>
+            <img
+              src={imageUrl}
+              alt="Viewed Content"
+              style={{ width: "100%", objectFit: "contain" }}
+            />
+            {audioUrl != "" && <audio controls src={audioUrl}>
+              Your browser does not support the audio element.
+            </audio>}
+            <div style={{display: 'flex', gap: '20px '}}>
+              {imageUrl != "" && <button
+                onClick={copyImageToClipboard}
+                className="share-button"
+              >
+                Share Video
+              </button>}
+              {audioUrl != "" && <button
+                onClick={copyAudioToClipboard}
+                className="share-button"
+              >
+                Share Audio
+              </button>}
+            </div>
+            
+          </div>
+          
         </div>
       </div>
     </div>
