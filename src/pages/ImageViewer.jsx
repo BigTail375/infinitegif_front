@@ -4,20 +4,23 @@ import axios from "axios";
 import { SocialIcon } from 'react-social-icons'
 import { Header } from "../components";
 import { useNavigate } from "react-router-dom";
+import { BiUpvote, BiDownvote } from "react-icons/bi";
 
 const ImageViewer = () => {
   const navigate = useNavigate();
   const { image_id } = useParams(); // Extract the image_id from the URL
+  const decodedImageId = decodeURIComponent(image_id);
   const [imageUrl, setImageUrl] = useState("");
   const [imageTags, setImageTags] = useState([]);
   const [audioUrl, setAudioUrl] = useState("");
+  const [imageVote, setImageVote] = useState(0);
+  const [currentVote, setCurrentVote] = useState(0);
 
   useEffect(() => {
     handleUrl();
   }, []);
 
   const handleUrl = async () => {
-    const decodedImageId = decodeURIComponent(image_id);
     const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5001/id`;
     const id_data = await axios.post(URL, { id: decodedImageId });
     console.log("_________id_data:", id_data);
@@ -30,6 +33,7 @@ const ImageViewer = () => {
       setAudioUrl("");
     }
     setImageTags(id_data.data.results.tags);
+    setImageVote(id_data.data.results.vote);
   };
 
   const copyImageToClipboard = () => {
@@ -48,6 +52,21 @@ const ImageViewer = () => {
   const handleTagImage = (tag_id) => {
     const encodedTagId = encodeURIComponent(tag_id);
     navigate(`/tag/${encodedTagId}`);
+  }
+
+  const handleUpVote = () => {
+    if (currentVote != 1){
+      setCurrentVote((prev) => {return prev + 1});
+      const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5001/update_vote`;
+      const id_data = axios.post(URL, { id: decodedImageId, vote: "up" });
+    }
+  }
+  const handleDownVote = () => {
+    if (currentVote != -1) {
+      setCurrentVote((prev) => {return prev - 1})
+      const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5001/update_vote`;
+      const id_data = axios.post(URL, { id: decodedImageId, vote: "down" });
+    }
   }
   return (
     <div className="App">
@@ -75,20 +94,21 @@ const ImageViewer = () => {
             <div style={{display: 'flex', gap: '20px '}}>
               {imageUrl != "" && <button
                 onClick={copyImageToClipboard}
-                className="share-button"
+                className="new-post-button"
               >
                 Share Video
               </button>}
               {audioUrl != "" && <button
                 onClick={copyAudioToClipboard}
-                className="share-button"
+                className="new-post-button"
               >
                 Share Audio
               </button>}
+              <button className="new-post-button" onClick={() => {handleUpVote();}}><BiUpvote /></button>
+              <div>{imageVote + currentVote}</div>
+              <button className="new-post-button" onClick={() => {handleDownVote();}}><BiDownvote /></button>
             </div>
-            
           </div>
-          
         </div>
       </div>
     </div>

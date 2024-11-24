@@ -89,7 +89,7 @@ function Gifconverter() {
         // Create FormData and append the Blob
         const formData = new FormData();
         formData.append("file", blob, "filename.extension");
-        formData.append("gridSize", gridSize); 
+        formData.append("tags", JSON.stringify([""]));
 
         axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5001/upload`, formData)
         
