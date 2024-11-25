@@ -10,6 +10,7 @@ const Btn = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  min-width: 100px;
   :hover {
     background-color: #149958;
   }
@@ -23,12 +24,13 @@ const Cbutton = ({buttonType}) => {
         if (buttonType == 1) {window.location = '/gif';}
         else if (buttonType == 2) {window.location = '/recrusive';}
         else if (buttonType == 3) {window.location = '/';}
-        else {window.location = '/audio';}
+        else if (buttonType == 4) {window.location = '/audio';}
       }}>
         {buttonType == 1 ? "Video2Gif" : ""}
-        {buttonType == 2 ? "Image2Recrusive" : ""}
-        {buttonType == 3 ? "Browse Image" : ""}
-        {buttonType == 4 ? "Browse Audio" : ""}
+        {buttonType == 2 ? "Recrusive" : ""}
+        {buttonType == 3 ? "All Image" : ""}
+        {buttonType == 4 ? "All Audio" : ""}
+        {buttonType == 5 ? "New Post" : ""}
       </Btn>  
     </div>
   );

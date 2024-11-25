@@ -41,6 +41,7 @@
   justify-content: flex-start;
   gap: 10px;
 }
+
 .new-post-button {
   padding: 8px 16px;
   font-size: 14px;
@@ -76,4 +77,19 @@
 .sign-in-button:hover,
 .sign-up-button:hover {
   background-color: #303030; /* Darker hover effect */
+}
+
+@media (max-width: 1024px) {
+  .header-left {
+    display: none;
+  }
+  .header-center {
+    flex-direction: column;
+  }
+  .header-right {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
 }

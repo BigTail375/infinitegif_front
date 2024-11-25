@@ -12,11 +12,11 @@ const Header = () => {
           alt="Logo"
           className="header-logo"
         />
-        <button className="new-post-button">+ New Post</button>
       </div>
 
       {/* Center Section: Add New Post Button */}
       <div className="header-center">
+        <Cbutton buttonType={5}/>
         <Cbutton buttonType={3}/>
         <Cbutton buttonType={4}/>
         <Cbutton buttonType={1}/>
