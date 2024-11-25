@@ -11,7 +11,7 @@ function RecrusiveGif() {
     formData.append('file', image);
     
     try {
-      const response = await axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5002/recrusivegif`, formData, {
+      const response = await axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5001/recrusivegif`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         responseType: 'blob', // Expect a blob in response
       });
@@ -40,7 +40,7 @@ function RecrusiveGif() {
         const formData = new FormData();
         formData.append("file", blob, "filename.extension");
 
-        axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5002/upload`, formData)
+        axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5001/upload`, formData)
         
         .then((response) => {
           console.log("Success:", response.data);

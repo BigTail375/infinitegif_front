@@ -51,7 +51,7 @@ function Gifconverter() {
         formData.append("file", blob, "filename.extension");
         formData.append("gridSize", gridSize); 
 
-        axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5002/gif2grid`, formData)
+        axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5001/gif2grid`, formData)
 
         .then((response) => {
           console.log("Success:", response.data);
@@ -91,7 +91,7 @@ function Gifconverter() {
         formData.append("file", blob, "filename.extension");
         formData.append("tags", JSON.stringify([""]));
 
-        axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5002/upload`, formData)
+        axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5001/upload`, formData)
         
         .then((response) => {
           console.log("Success:", response.data);
@@ -114,7 +114,7 @@ function Gifconverter() {
     console.log(urlArray[urlArray.length - 1])
     formData.append("file", urlArray[urlArray.length - 1]); 
 
-    axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5002/uploadGrid`, formData) 
+    axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5001/uploadGrid`, formData) 
     .then((response) => {
       console.log("Success:", response.data);
       alert("Success: Image is uploaded!")

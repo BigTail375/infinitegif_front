@@ -12,7 +12,7 @@ function TagViewer() {
   const [loading, setLoading] = useState(false);
 
   const fetchMovie = async () => {
-    const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5002/image_by_tags`;
+    const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5001/image_by_tags`;
     const decodedTagId = decodeURIComponent(tag_id);
     const page_data = await axios.post(URL, {"page":page, "tags": [decodedTagId]})
     console.log(page_data.data.results);
