@@ -21,7 +21,7 @@ const ImageViewer = () => {
   }, []);
 
   const handleUrl = async () => {
-    const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5001/id`;
+    const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5002/id`;
     const id_data = await axios.post(URL, { id: decodedImageId });
     console.log("_________id_data:", id_data);
 
@@ -57,14 +57,14 @@ const ImageViewer = () => {
   const handleUpVote = () => {
     if (currentVote != 1){
       setCurrentVote((prev) => {return prev + 1});
-      const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5001/update_vote`;
+      const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5002/update_vote`;
       const id_data = axios.post(URL, { id: decodedImageId, vote: "up" });
     }
   }
   const handleDownVote = () => {
     if (currentVote != -1) {
       setCurrentVote((prev) => {return prev - 1})
-      const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5001/update_vote`;
+      const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5002/update_vote`;
       const id_data = axios.post(URL, { id: decodedImageId, vote: "down" });
     }
   }
