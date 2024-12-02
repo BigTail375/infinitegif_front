@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Button, Dbutton, Cbutton, Header, Inputfile, Inputimage, Resultimage, Ubutton} from "../components";
+import { useParams } from "react-router-dom";
 
 function RecrusiveGif() {
+  const { recrusive_id } = useParams(); 
   const [image, setImage] = useState(null);
   const [gifUrl, setGifUrl] = useState(null);
 
@@ -11,7 +13,12 @@ function RecrusiveGif() {
     formData.append('file', image);
     
     try {
-      const response = await axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5001/recrusivegif`, formData, {
+      console.log("recrusive_id", recrusive_id)
+      var url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/paintbynumber`
+      if (recrusive_id.startsWith("1")){
+        url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/recrusivegif`
+      }
+      const response = await axios.post(url, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         responseType: 'blob', // Expect a blob in response
       });

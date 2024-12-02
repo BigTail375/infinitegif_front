@@ -5,6 +5,7 @@ import { SocialIcon } from 'react-social-icons'
 import { Header, Ubutton } from "../components";
 import { useNavigate } from "react-router-dom";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
+import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 
 const ImageViewer = () => {
   const navigate = useNavigate();
@@ -120,12 +121,16 @@ const ImageViewer = () => {
     })
   }
 
-  const handleUpload = async () => {
+  const handleUpload = async (uploadType) => {
     const formData = new FormData();
     formData.append("_id", decodedImageId);
 
     try {
-      const response = await axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5001/url2recrusive`, formData, {
+      var url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/url2recrusive`;
+      if (uploadType == 2){
+        var url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/url2paint`;
+      }
+      const response = await axios.post(url, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         responseType: 'blob', // Expect a blob in response
       });
@@ -220,10 +225,14 @@ const ImageViewer = () => {
                 </select>
                 <button onClick={() => {gif2grid();}} className="new-post-button">Gif to Grid</button>
               </div>}
-              {imageType == "png" && <div style={{display: 'flex', gap: '20px'}}>
-                <button className="new-post-button" onClick={() => {handleUpload();}}>Convert to recrusive gif</button>
-              </div>}
-
+              <div style={{display: "flex", justifyContent: 'flex-end', gap: '20px'}}>
+                {imageType == "png" && <div style={{display: 'flex', gap: '20px'}}>
+                  <button className="new-post-button" onClick={() => {handleUpload(1);}}>Convert to recrusive gif</button>
+                </div>}
+                {imageType == "png" && <div style={{display: 'flex', gap: '20px'}}>
+                  <button className="new-post-button" onClick={() => {handleUpload(2);}}>Paint by Number</button>
+                </div>}
+              </div>
             </div>
           </div>
           
