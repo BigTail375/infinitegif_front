@@ -20,6 +20,7 @@ const ImageViewer = () => {
   const [gridUrl, setGridUrl] = useState();
   const [imageType, setImageType] = useState("gif");
   const [gifUrl, setGifUrl] = useState(null);
+  const [tileSize, setTileSize] = useState(1);
 
   useEffect(() => {
     handleUrl();
@@ -130,6 +131,14 @@ const ImageViewer = () => {
       if (uploadType == 2){
         var url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/url2paint`;
       }
+      if (uploadType == 3){
+        var url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/url2puzzle`;
+        formData.append('pieceSize', tileSize);
+      }
+      if (uploadType == 4){
+        var url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/url2mosaic`;
+        formData.append('tileSize', tileSize);
+      }
       const response = await axios.post(url, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         responseType: 'blob', // Expect a blob in response
@@ -198,7 +207,8 @@ const ImageViewer = () => {
             {audioUrl != "" && <audio controls src={audioUrl}>
               Your browser does not support the audio element.
             </audio>}
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+
+            <div style={{display: 'flex', justifyContent: 'center'}}>
               <div style={{display: 'flex', gap: '20px'}}>
                 {imageUrl != "" && <button
                   onClick={copyImageToClipboard}
@@ -216,7 +226,11 @@ const ImageViewer = () => {
                 <div>{imageVote + currentVote}</div>
                 <button className="new-post-button" onClick={() => {handleDownVote();}}><BiDownvote /></button>
               </div>
-
+            </div>
+          </div>
+          
+          
+          <div style={{display: 'flex', justifyContent: 'center', margin: '20px'}}>
               {imageType == "gif" && <div style={{display: 'flex', gap: '20px'}}>
                 <select id="grid-select" value={gridSize} onChange={handleChange} className="new-post-button">
                   <option value="2x2">2x2</option>
@@ -225,17 +239,24 @@ const ImageViewer = () => {
                 </select>
                 <button onClick={() => {gif2grid();}} className="new-post-button">Gif to Grid</button>
               </div>}
-              <div style={{display: "flex", justifyContent: 'flex-end', gap: '20px'}}>
-                {imageType == "png" && <div style={{display: 'flex', gap: '20px'}}>
-                  <button className="new-post-button" onClick={() => {handleUpload(1);}}>Convert to recrusive gif</button>
-                </div>}
-                {imageType == "png" && <div style={{display: 'flex', gap: '20px'}}>
-                  <button className="new-post-button" onClick={() => {handleUpload(2);}}>Paint by Number</button>
-                </div>}
-              </div>
+              {imageType == "png" && <div style={{display: "flex", justifyContent: 'center', gap: '20px'}}>
+                <div style={{display: 'flex', gap: '20px'}}>
+                  <button className="new-post-button" onClick={() => {handleUpload(1);}}>recrusivegif</button>
+                </div>
+                <div style={{display: 'flex', gap: '20px'}}>
+                  <button className="new-post-button" onClick={() => {handleUpload(2);}}>Paint Number</button>
+                </div>
+                <p>Size: </p>
+                <input type="number" className="number-input" onChange={(e) => {setTileSize(e.target.value);}} innerText="1"/>
+                <div style={{display: 'flex', gap: '20px'}}>
+                  <button className="new-post-button" onClick={() => {handleUpload(3);}}>Puzzle</button>
+                </div>
+                <div style={{display: 'flex', gap: '20px'}}>
+                  <button className="new-post-button" onClick={() => {handleUpload(4);}}>Mosaic</button>
+                </div>
+              </div>}
             </div>
-          </div>
-          
+
           {gridUrl != null && <div style={{width: '100%', position: 'relative', marginTop: "40px"}}>
             <img 
               src={gridUrl}

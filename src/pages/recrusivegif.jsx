@@ -7,16 +7,26 @@ function RecrusiveGif() {
   const { recrusive_id } = useParams(); 
   const [image, setImage] = useState(null);
   const [gifUrl, setGifUrl] = useState(null);
-
+  const [pieceSize, setPieceSize] = useState(1);
+  const [tileSize, setTileSize] = useState(1);
   const handleUpload = async () => {
     const formData = new FormData();
     formData.append('file', image);
     
     try {
       console.log("recrusive_id", recrusive_id)
-      var url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/paintbynumber`
-      if (recrusive_id.startsWith("1")){
-        url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/recrusivegif`
+      var url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/recrusivegif`;
+      if (recrusive_id == "2"){
+        url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/paintbynumber`;
+      }
+      if (recrusive_id == "3"){
+        url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/puzzle`;
+        formData.append('pieceSize', pieceSize);
+        console.log("formData", formData);
+      }
+      if (recrusive_id == "4"){
+        url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/mosaic`;
+        formData.append('tileSize', tileSize);
       }
       const response = await axios.post(url, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -69,7 +79,19 @@ function RecrusiveGif() {
       <Header />
       {image && <Inputimage image={image} />}
       <Inputfile setVideo={setImage} />
-      {image && <div><Button buttonText={"Convert to recrusive gif"} callBack={handleUpload} /></div>}
+      {image && recrusive_id == "1" && <div><Button buttonText={"Convert to recrusive gif"} callBack={handleUpload} /></div>}
+      {image && recrusive_id == "2" && <div><Button buttonText={"Paint By Number"} callBack={handleUpload} /></div>}
+      {image && recrusive_id == "3" && <div style={{display: 'flex', justifyContent: 'center'}}><div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+        <p>Piece Size: </p>
+        <input type="number" className="number-input" onChange={(e) => {setPieceSize(e.target.value);}} innerText="1"/>
+        <Button buttonText={"Puzzle Effect"} callBack={handleUpload} />
+      </div></div>}
+      {image && recrusive_id == "4" && <div style={{display: 'flex', justifyContent: 'center'}}><div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+        <p>Tile Size: </p>
+        <input type="number" className="number-input" onChange={(e) => {setTileSize(e.target.value);}} innerText="1"/>
+        <Button buttonText={"Mosaic Effect"} callBack={handleUpload} />
+      </div></div>}
+
       {image && gifUrl && 
         <div style={{margin: '20px'}}><Resultimage gif={gifUrl} /></div>
       }

@@ -25,7 +25,9 @@ const Cbutton = ({buttonType}) => {
         else if (buttonType == 2) {window.location = '/recrusive/1';}
         else if (buttonType == 3) {window.location = '/';}
         else if (buttonType == 4) {window.location = '/audio';}
-        else if (buttonType = 6) {window.location = '/recrusive/2'}
+        else if (buttonType == 6) {window.location = '/recrusive/2'}
+        else if (buttonType == 7) {window.location = '/recrusive/3'}
+        else if (buttonType == 8) {window.location = '/recrusive/4'}
       }}>
         {buttonType == 1 ? "Video2Gif" : ""}
         {buttonType == 2 ? "Recrusive" : ""}
@@ -33,6 +35,8 @@ const Cbutton = ({buttonType}) => {
         {buttonType == 4 ? "All Audio" : ""}
         {buttonType == 5 ? "New Post" : ""}
         {buttonType == 6 ? "Paint Number" : ""}
+        {buttonType == 7 ? "Puzzle" : ""}
+        {buttonType == 8 ? "Mosaic" : ""}
       </Btn>  
     </div>
   );

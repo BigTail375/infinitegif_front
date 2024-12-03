@@ -22,6 +22,8 @@ const Header = () => {
         <Cbutton buttonType={1}/>
         <Cbutton buttonType={2}/>
         <Cbutton buttonType={6}/>
+        <Cbutton buttonType={7}/>
+        <Cbutton buttonType={8}/>
       </div>
 
       {/* Right Section: Sign In / Sign Up */}
