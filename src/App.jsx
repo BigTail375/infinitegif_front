@@ -8,7 +8,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/gif" element={<Gifconverter />}/>
-        <Route path="/recrusive/:recrusive_id" element={<RecrusiveGif />}/>
+        <Route path="/recrusive" element={<RecrusiveGif />}/>
         <Route path="/image/:image_id" element={<ImageViewer />} />
         <Route path="/tag/:tag_id" element={<TagViewer />} />
         <Route path="/audio" element={<AudioViewer />} />

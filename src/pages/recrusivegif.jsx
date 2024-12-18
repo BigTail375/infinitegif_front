@@ -1,32 +1,61 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Button, Dbutton, Cbutton, Header, Inputfile, Inputimage, Resultimage, Ubutton} from "../components";
-import { useParams } from "react-router-dom";
+
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+
+function CustomTabPanel({children, value, index, ...other}) {
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  );
+}
+
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
 
 function RecrusiveGif() {
-  const { recrusive_id } = useParams(); 
   const [image, setImage] = useState(null);
   const [gifUrl, setGifUrl] = useState(null);
-  const [pieceSize, setPieceSize] = useState(1);
-  const [tileSize, setTileSize] = useState(1);
+  const [effectType, setEffectType] = useState(0);
+  const effectList = ["Recrusive", "PaintNumber", "Puzzle", "Mosaic", "Oil", "Cartoon", "Gray", "Sepia", "Negative", "Blur", "Sharpen", "Edge", "Emboss", "Bright", "Contrast", "Saturation", "Gaussian", "Median", "Bilateral", "Threshold", "Posterize", "Solarize", "Vignette", "Pixelate"]
+  const nonParams = [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 22];
+
+  const handleEffectTypeChange = (event, newEffect) => {
+    setEffectType(newEffect);
+    setGifUrl(null);
+  };
+
   const handleUpload = async () => {
     const formData = new FormData();
     formData.append('file', image);
     
     try {
-      console.log("recrusive_id", recrusive_id)
-      var url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/recrusivegif`;
-      if (recrusive_id == "2"){
-        url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/paintbynumber`;
+      console.log("effect type", effectType);
+      var url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/effect`;
+      if (effectType < 4){
+        if (effectType == 0)  {url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/recrusivegif`;}
+        if (effectType == 1)  {url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/paintbynumber`;}
+        if (effectType == 2)  {url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/puzzle`;}
+        if (effectType == 3)  {url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/mosaic`;}
       }
-      if (recrusive_id == "3"){
-        url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/puzzle`;
-        formData.append('pieceSize', pieceSize);
-        console.log("formData", formData);
-      }
-      if (recrusive_id == "4"){
-        url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/mosaic`;
-        formData.append('tileSize', tileSize);
+      else{
+        url = `http://${process.env.REACT_APP_BACKEND_URL}:5001/effect`;
+        formData.append("effectType", effectType - 4);
       }
       const response = await axios.post(url, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -77,20 +106,37 @@ function RecrusiveGif() {
   return (
     <div className="App">
       <Header />
-      {image && <Inputimage image={image} />}
-      <Inputfile setVideo={setImage} />
-      {image && recrusive_id == "1" && <div><Button buttonText={"Convert to recrusive gif"} callBack={handleUpload} /></div>}
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={effectType}
+            onChange={handleEffectTypeChange}
+            aria-label="basic tabs example"
+            variant="scrollable"
+            scrollButtons="auto">
+            {effectList.map((key, index) => {
+              return (<Tab key={key} label={effectList[index]} {...a11yProps(index)} />)
+            })}
+          </Tabs>
+        </Box>
+        {effectList.map((key, index) => {
+          if (nonParams.includes(index)){
+            return (<CustomTabPanel key={key} value={effectType} index={index}>
+              {image && <Inputimage image={image} />}
+              <Inputfile setVideo={setImage} />
+              {image && <div style={{display: 'flex', justifyContent: 'center'}}><Button buttonText={"Apply Effect"} callBack={handleUpload}/></div>}
+            </CustomTabPanel>)
+          }
+        })}
+      </Box>
+
+      {/* {image && recrusive_id == "1" && <div><Button buttonText={"Convert to recrusive gif"} callBack={handleUpload} /></div>}
       {image && recrusive_id == "2" && <div><Button buttonText={"Paint By Number"} callBack={handleUpload} /></div>}
       {image && recrusive_id == "3" && <div style={{display: 'flex', justifyContent: 'center'}}><div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
-        <p>Piece Size: </p>
-        <input type="number" className="number-input" onChange={(e) => {setPieceSize(e.target.value);}} innerText="1"/>
         <Button buttonText={"Puzzle Effect"} callBack={handleUpload} />
       </div></div>}
       {image && recrusive_id == "4" && <div style={{display: 'flex', justifyContent: 'center'}}><div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
-        <p>Tile Size: </p>
-        <input type="number" className="number-input" onChange={(e) => {setTileSize(e.target.value);}} innerText="1"/>
         <Button buttonText={"Mosaic Effect"} callBack={handleUpload} />
-      </div></div>}
+      </div></div>} */}
 
       {image && gifUrl && 
         <div style={{margin: '20px'}}><Resultimage gif={gifUrl} /></div>
