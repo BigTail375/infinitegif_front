@@ -17,6 +17,7 @@ function Dashboard() {
   };
   useEffect(() => {
     fetchMovie();
+
   }, [page]);
 
   const handleScroll = () => {
@@ -45,6 +46,19 @@ function Dashboard() {
   useEffect(() => {
     if (loading == true) {
       setPage((prevPage) => prevPage + 1);
+    }
+    const domain = window.location.hostname;
+    const appHeader = document.querySelector('.App-header');
+    const domainColorMap = {
+      "example1.com": "#ff23423",
+      "example2.com": "#ff2234",
+      "example3.com": "#eee241",
+      "example4.com": "#f24412"
+    }
+    if (domainColorMap[domain]) {
+      appHeader.style.backgroudColor = domainColorMap[domain];
+    } else {
+      appHeader.style.backgroundColor = '#282c34';
     }
   }, [loading]);
 
