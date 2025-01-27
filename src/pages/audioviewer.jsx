@@ -51,10 +51,13 @@ function AudioViewer() {
     const domain = window.location.hostname;
     const appHeader = document.querySelector('.App-header');
     const domainColorMap = {
-      "example1.com": "#ff23423",
-      "example2.com": "#ff2234",
-      "example3.com": "#eee241",
-      "example4.com": "#f24412"
+      "egifany.com": "#1c1c1c",
+      "egifny.com": "#2c3e50",
+      "gifinite.com": "#f0e68c",
+      "ingifinit.com": "#4b0082",
+      "gifinitegif.com": "#282c34",
+      "ingifinite.com": "#ffe4c4",
+      "ingifinitegif.com": "#8b4513",
     }
     if (domainColorMap[domain]) {
       appHeader.style.backgroudColor = domainColorMap[domain];

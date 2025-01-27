@@ -1,8 +1,28 @@
 import React from "react";
 import '../style/Header.css'
 import Cbutton from "./buttons/CButton";
+import { useEffect } from "react";
 
 const Header = () => {
+  useEffect(() => {
+    const domain = window.location.hostname;
+    const appHeader = document.querySelector('.header');
+    const domainColorMap = {
+      "egifany.com": "#0xff5733",
+      "egifny.com": "#0x33ff57",
+      "gifinite.com": "#0x3357ff",
+      "ingifinit.com": "#0xff33a1",
+      "gifinitegif.com": "#181818",
+      "ingifinite.com": "#0x8a2be2",
+      "ingifinitegif.com": "#0x00ced1",
+    }
+
+    if (domainColorMap[domain]) {
+      appHeader.style.backgroudColor = domainColorMap[domain];
+    } else {
+      appHeader.style.backgroundColor = '#181818';
+    }
+  }, [])
   return (
     <header className="header">
       {/* Left Section: Logo */}
