@@ -8,13 +8,13 @@ const Header = () => {
     const domain = window.location.hostname;
     const appHeader = document.querySelector('.header');
     const domainColorMap = {
-      "egifany.com": "#0xff5733",
-      "egifny.com": "#0x33ff57",
-      "gifinite.com": "#0x3357ff",
-      "ingifinit.com": "#0xff33a1",
+      "egifany.com": "#ff5733",
+      "egifny.com": "#33ff57",
+      "gifinite.com": "#3357ff",
+      "ingifinit.com": "#ff33a1",
       "gifinitegif.com": "#181818",
-      "ingifinite.com": "#0x8a2be2",
-      "ingifinitegif.com": "#0x00ced1",
+      "ingifinite.com": "#8a2be2",
+      "ingifinitegif.com": "#00ced1",
     }
 
     if (domainColorMap[domain]) {
