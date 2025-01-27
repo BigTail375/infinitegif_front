@@ -18,7 +18,6 @@ function AudioViewer() {
 
   useEffect(() => {
     fetchMovie();
-    console.log(window.location.hostname);
   }, [page]);
 
   const handleScroll = () => {
@@ -60,10 +59,11 @@ function AudioViewer() {
       "ingifinitegif.com": "#8b4513",
     }
     if (domainColorMap[domain]) {
-      appHeader.style.backgroudColor = domainColorMap[domain];
+      appHeader.style.backgroundColor = domainColorMap[domain];
     } else {
       appHeader.style.backgroundColor = '#282c34';
     }
+    console.log(appHeader.style)
   }, [loading]);
 
   return (

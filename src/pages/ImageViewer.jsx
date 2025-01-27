@@ -36,7 +36,7 @@ const ImageViewer = () => {
       "ingifinitegif.com": "#8b4513",
     }
     if (domainColorMap[domain]) {
-      appHeader.style.backgroudColor = domainColorMap[domain];
+      appHeader.style.backgroundColor = domainColorMap[domain];
     } else {
       appHeader.style.backgroundColor = '#282c34';
     }

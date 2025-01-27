@@ -18,7 +18,7 @@ const Header = () => {
     }
 
     if (domainColorMap[domain]) {
-      appHeader.style.backgroudColor = domainColorMap[domain];
+      appHeader.style.backgroundColor = domainColorMap[domain];
     } else {
       appHeader.style.backgroundColor = '#181818';
     }
