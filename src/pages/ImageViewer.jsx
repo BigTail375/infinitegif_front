@@ -6,6 +6,7 @@ import { Header, Ubutton } from "../components";
 import { useNavigate } from "react-router-dom";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import { faLeaf } from "@fortawesome/free-solid-svg-icons";
+import domainColorMap from "../style/backgroundColor.json";
 
 const ImageViewer = () => {
   const navigate = useNavigate();
@@ -26,15 +27,6 @@ const ImageViewer = () => {
     handleUrl();
     const domain = window.location.hostname;
     const appHeader = document.querySelector('.App-header');
-    const domainColorMap = {
-      "egifany.com": "#1c1c1c",
-      "egifny.com": "#2c3e50",
-      "gifinite.com": "#f0e68c",
-      "ingifinit.com": "#4b0082",
-      "gifinitegif.com": "#282c34",
-      "ingifinite.com": "#ffe4c4",
-      "ingifinitegif.com": "#8b4513",
-    }
     if (domainColorMap[domain]) {
       appHeader.style.backgroundColor = domainColorMap[domain];
     } else {

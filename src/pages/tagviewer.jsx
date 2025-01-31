@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { Cbutton, MovieCard, Header } from "../components";
+import domainColorMap from "../style/backgroundColor.json";
 
 function TagViewer() {
   const { tag_id } = useParams(); // Extract the image_id from the URL
@@ -12,9 +13,15 @@ function TagViewer() {
   const [loading, setLoading] = useState(false);
 
   const fetchMovie = async () => {
+    const domain = window.location.hostname;
+    const keys = Object.keys(domainColorMap);
+    const index = keys.indexOf(domain);
+    if (index < 0)
+      index = 0;
+
     const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5001/image_by_tags`;
     const decodedTagId = decodeURIComponent(tag_id);
-    const page_data = await axios.post(URL, {"page":page, "tags": [decodedTagId]})
+    const page_data = await axios.post(URL, {"page":page, "tags": [decodedTagId], "skip": index * 50})
     console.log(page_data.data.results);
     setData((prevData) => page_data.data.results);
     setLoading(false);
@@ -52,15 +59,6 @@ function TagViewer() {
     }
     const domain = window.location.hostname;
     const appHeader = document.querySelector('.App-header');
-    const domainColorMap = {
-      "egifany.com": "#1c1c1c",
-      "egifny.com": "#2c3e50",
-      "gifinite.com": "#f0e68c",
-      "ingifinit.com": "#4b0082",
-      "gifinitegif.com": "#282c34",
-      "ingifinite.com": "#ffe4c4",
-      "ingifinitegif.com": "#8b4513",
-    }
     if (domainColorMap[domain]) {
       appHeader.style.backgroundColor = domainColorMap[domain];
     } else {

@@ -2,21 +2,13 @@ import React from "react";
 import '../style/Header.css'
 import Cbutton from "./buttons/CButton";
 import { useEffect } from "react";
+import domainColorMap from '../style/foregroundColor.json'
 
 const Header = () => {
   useEffect(() => {
     const domain = window.location.hostname;
     const appHeader = document.querySelector('.header');
-    const domainColorMap = {
-      "egifany.com": "#ff5733",
-      "egifny.com": "#33ff57",
-      "gifinite.com": "#3357ff",
-      "ingifinit.com": "#ff33a1",
-      "gifinitegif.com": "#181818",
-      "ingifinite.com": "#8a2be2",
-      "ingifinitegif.com": "#00ced1",
-    }
-
+    console.log(domainColorMap);
     if (domainColorMap[domain]) {
       appHeader.style.backgroundColor = domainColorMap[domain];
     } else {
