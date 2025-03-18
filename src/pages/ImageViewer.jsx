@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { SocialIcon } from 'react-social-icons'
-import { Header, Ubutton } from "../components";
+import { Header, Ubutton, Inputfile, Inputimage } from "../components";
 import { useNavigate } from "react-router-dom";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import { faLeaf } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +12,7 @@ const ImageViewer = () => {
   const navigate = useNavigate();
   const { image_id } = useParams(); // Extract the image_id from the URL
   const decodedImageId = decodeURIComponent(image_id);
+  const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [imageTags, setImageTags] = useState([]);
   const [audioUrl, setAudioUrl] = useState("");
@@ -101,6 +102,29 @@ const ImageViewer = () => {
     formData.append("gridSize", gridSize); 
 
     axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5001/url2grid`, formData)
+
+    .then((response) => {
+      console.log("Success:", response.data);
+      
+      const imgUrl = `http://${process.env.REACT_APP_BACKEND_URL}/temp/${response.data.results}`;  // Backend should return the image as binary
+      console.log("Temp image: ", response.data.results);
+
+      setGridUrl(imgUrl);
+      alert("Success: Image is uploaded and converted!")
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("Failed: Image is not uploaded!")
+    });
+  }
+
+  const faceswap = (gif) => {
+    console.log(gif);
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("_id", decodedImageId)
+
+    axios.post(`http://${process.env.REACT_APP_BACKEND_URL}:5001/faceswap`, formData)
 
     .then((response) => {
       console.log("Success:", response.data);
@@ -239,31 +263,38 @@ const ImageViewer = () => {
           
           
           <div style={{display: 'flex', justifyContent: 'center', margin: '20px'}}>
-              {imageType == "gif" && <div style={{display: 'flex', gap: '20px'}}>
-                <select id="grid-select" value={gridSize} onChange={handleChange} className="new-post-button">
-                  <option value="2x2">2x2</option>
-                  <option value="3x3">3x3</option>
-                  <option value="4x4">4x4</option>
-                </select>
-                <button onClick={() => {gif2grid();}} className="new-post-button">Gif to Grid</button>
-              </div>}
-              {imageType == "png" && <div style={{display: "flex", justifyContent: 'center', gap: '20px'}}>
-                <div style={{display: 'flex', gap: '20px'}}>
-                  <button className="new-post-button" onClick={() => {handleUpload(1);}}>recrusivegif</button>
-                </div>
-                <div style={{display: 'flex', gap: '20px'}}>
-                  <button className="new-post-button" onClick={() => {handleUpload(2);}}>Paint Number</button>
-                </div>
-                <p>Size: </p>
-                <input type="number" className="number-input" onChange={(e) => {setTileSize(e.target.value);}} innerText="1"/>
-                <div style={{display: 'flex', gap: '20px'}}>
-                  <button className="new-post-button" onClick={() => {handleUpload(3);}}>Puzzle</button>
-                </div>
-                <div style={{display: 'flex', gap: '20px'}}>
-                  <button className="new-post-button" onClick={() => {handleUpload(4);}}>Mosaic</button>
-                </div>
-              </div>}
-            </div>
+            {imageType == "gif" && <div style={{display: 'flex', gap: '20px'}}>
+              <select id="grid-select" value={gridSize} onChange={handleChange} className="new-post-button">
+                <option value="2x2">2x2</option>
+                <option value="3x3">3x3</option>
+                <option value="4x4">4x4</option>
+              </select>
+              <button onClick={() => {gif2grid();}} className="new-post-button">Gif to Grid</button>
+            </div>}
+            {imageType == "png" && <div style={{display: "flex", justifyContent: 'center', gap: '20px'}}>
+              <div style={{display: 'flex', gap: '20px'}}>
+                <button className="new-post-button" onClick={() => {handleUpload(1);}}>recrusivegif</button>
+              </div>
+              <div style={{display: 'flex', gap: '20px'}}>
+                <button className="new-post-button" onClick={() => {handleUpload(2);}}>Paint Number</button>
+              </div>
+              <p>Size: </p>
+              <input type="number" className="number-input" onChange={(e) => {setTileSize(e.target.value);}} innerText="1"/>
+              <div style={{display: 'flex', gap: '20px'}}>
+                <button className="new-post-button" onClick={() => {handleUpload(3);}}>Puzzle</button>
+              </div>
+              <div style={{display: 'flex', gap: '20px'}}>
+                <button className="new-post-button" onClick={() => {handleUpload(4);}}>Mosaic</button>
+              </div>
+            </div>}
+          </div>
+          
+          {imageType == "gif" && <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
+            <h6>Select Your Face Image</h6>
+            <Inputfile setVideo={setImage} />
+            <button onClick={() => {faceswap();}} className="new-post-button">Face Swap</button>
+          </div>}
+          {imageType == "gif" && image && <Inputimage image={image} />}
 
           {gridUrl != null && <div style={{width: '100%', position: 'relative', marginTop: "40px"}}>
             <img 

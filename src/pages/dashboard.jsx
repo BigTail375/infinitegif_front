@@ -12,7 +12,8 @@ function Dashboard() {
   const fetchMovie = async () => {
     const domain = window.location.hostname;
     const keys = Object.keys(domainColorMap);
-    const index = keys.indexOf(domain);
+    var index = keys.indexOf(domain);
+    console.log("domain: ", index);
     if (index < 0)
       index = 0;
     const URL = `http://${process.env.REACT_APP_BACKEND_URL}:5001/page`;
